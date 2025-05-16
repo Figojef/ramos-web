@@ -118,7 +118,7 @@
                 <label class="informasi1">Nomor Rekening</label><br>
                 <label class="informasi2" id="rekening">7172 7838 7489234</label> 
                 <!-- Salin icon (path updated to public/icons) -->
-                <img src="{{ asset('icons/icon_Copy.png') }}" alt="Icon" width="20" height="20" id="copyButton" style="cursor: pointer;" onclick="copyToClipboard()"> <br>
+                <img src="{{ asset('images/icon_Copy.png') }}" alt="Icon" width="20" height="20" id="copyButton" style="cursor: pointer;" onclick="copyToClipboard()"> <br>
 
                 <label class="informasi1">Atas Nama</label><br>
                 <label class="informasi2">Yakop Simatupang</label><br>
@@ -134,7 +134,7 @@
                     <label class="informasi1">Bukti Pembayaran</label><br>  
                     <div class="upload-container">
     <label for="upload-input" class="upload-btn">
-        <img src="{{ asset('icons/icon_upload.png') }}" alt="Upload Icon"
+        <img src="{{ asset('images/icon_upload.png') }}" alt="Upload Icon"
              style="width: 20px; vertical-align: middle; margin-right: 8px;">
         Upload
     </label>
@@ -150,7 +150,7 @@
                 <div class="deadline">
                     <div class="deadline-content">
                         <!-- Deadline icon (path updated to public/icons) -->
-                        <img src="{{ asset('icons/icon_Jam.png') }}" alt="Icon" width="30" height="30" class="icon-deadline">
+                        <img src="{{ asset('images/icon_Jam.png') }}" alt="Icon" width="30" height="30" class="icon-deadline">
                         <p>Batas Akhir Pembayaran <br>
                         <strong id="countdown"></strong></p>
                     </div>
@@ -196,13 +196,13 @@
             const copyButton = document.getElementById("copyButton");
             
             // Change the icon to 'copied' icon
-            copyButton.src = "{{ asset('icons/icon_Copydone.png') }}"; 
+            copyButton.src = "{{ asset('images/icon_Copydone.png') }}"; 
 
             // Attempt to copy the text to the clipboard
             navigator.clipboard.writeText(rekening).then(() => {
                 // Revert the icon after 2 seconds
                 setTimeout(() => {
-                    copyButton.src = "{{ asset('icons/icon_Copy.png') }}"; // Reset to original icon
+                    copyButton.src = "{{ asset('images/icon_Copy.png') }}"; // Reset to original icon
                 }, 2000);
             }).catch(err => {
             });
