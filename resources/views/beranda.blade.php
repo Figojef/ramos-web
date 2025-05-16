@@ -94,7 +94,7 @@
                 bulutangkis. 
                 Kami memiliki fasilitas terbaik dan program latihan untuk pemain dari semua tingkat keahlian.
             </p>
-            <a href="#" class="text-dark fw-bold text-decoration-none d-inline-flex align-items-center">
+            <a href="tentang" class="text-dark fw-bold text-decoration-none d-inline-flex align-items-center">
                 Selengkapnya <i class="bi bi-arrow-right ms-2"></i>
             </a>
         </div>
