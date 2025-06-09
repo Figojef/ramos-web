@@ -18,6 +18,10 @@ Route::middleware(['inout'])->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
+    // Register routes
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 });
 
 
@@ -29,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/profil', [PemesananController::class, 'showProfil'])->name('profil')->middleware('auth');
+
+//Update Profil
+Route::post('/profil/update', [AuthController::class, 'updateProfile'])->name('profil.update');
 
 
 // Admin
@@ -42,9 +49,6 @@ Route::middleware(['admin'])->group(function () {
 
 // Membuat Pemesanan
 Route::post('/pemesanan', [PemesananController::class, 'store'])->name('pemesanan.store');
-
-Route::get('/pembayaran/{id}', [PembayaranController::class, 'showPaymentDetail'])->name('pembayaran.detail');
-
 // Mabar
 //Menampilkan Mabar
 
@@ -60,10 +64,13 @@ Route::get('/mabar/detail/{id}', function ($id) {
 })->name('mabar.detail');
 
 // mabar yang sudah lewat
-Route::get('/api/v1/mabar/history', [MabarController::class, 'getHistoryMabar']);
+Route::get('/api/v1/mabar/history/{userId}', [MabarController::class, 'getHistoryMabar']);
 
 // web.php
 Route::get('/mabar/pemain', [MabarController::class, 'showPemainFromRequest'])->name('mabar.pemainFromRequest');
+
+Route::get('/pemain_mabar', [MabarController::class, 'showPeserta'])->name('mabar.pemain.list'); // ubah nama route
+
 
 // Join Mabar
 Route::post('/mabar/join', [MabarController::class, 'joinMabar'])->name('mabar.join');
@@ -75,7 +82,17 @@ Route::post('/mabar/keluar', [MabarController::class, 'keluarMabar'])->name('mab
 Route::get('/mabar/pemain/{mabarId}', [MabarController::class, 'showPemain'])->name('mabar.pemain');
 
 // Menampilkan Rating User
-Route::get('/informasi-pemain/{userId}', [RatingController::class, 'showInformasiPemain'])->name('informasi.pemain');
+Route::get('/informasi-pemain/{id}', [RatingController::class, 'show'])->name('informasi.pemain');
+
+
+// Halaman detail rating untuk satu mabar tertentu
+Route::get('/rating/mabar/{mabarId}', [RatingController::class, 'showRatingDetail'])->name('informasi.rating.detail');
+
+// GET: Menampilkan form
+Route::get('/memberi-rating', [RatingController::class, 'showPenilaianForm'])->name('rating.form');
+
+// POST: Mengirim rating ke API
+Route::post('/kirim-rating', [RatingController::class, 'kirim'])->name('rating.kirim');
 
 
 
@@ -92,9 +109,7 @@ Route::get('/tentang', function () {
     return view('tentang');
 });
 
-Route::get('/pemain_mabar', function () {
-    return view('pemain_mabar');
-});
+
 
 Route::get('/reservasi', function () {
     return view('reservasi');
@@ -107,6 +122,11 @@ Route::get('/jadwal', function () {
 Route::get('/informasi_pemain', function () {
     return view('informasi_pemain');
 });
+
+Route::get('/informasi_ratingpemain', function () {
+    return view('informasi_ratingpemain');
+});
+
 
 Route::get('/register', function () {
     return view('auth/register');
@@ -122,28 +142,36 @@ Route::get('/detail_pesanan', function () {
     return view('detail_pesanan');
 });
 
+// Route::get('/memberi-rating', function () {
+//     return view('memberi_rating');
+// });
+
 Route::get('/mabar', function () {
     return view('mabar');
 })->name('mabar');
+
+Route::get('/detail_status', function () {
+    return view('detail_status');
+})->name('detail_status');
+
 
 Route::get('/detail_mabar', function () {
     return view('detail_mabar');
 })->name('detail_mabar');
 
-
-
 Route::get('/tambahMabar', function () {
     return view('tambahMabar');
 })->name('tambahMabar');
 
-Route::get('/detail_pembayaran', function () {
-    return view('detail_pembayaran');
-})->name('detail_pembayaran');
-
 Route::get('/upload-bukti/{id}', [TransaksiController::class, 'showUploadForm']);
+
+Route::get('/detail_pembayaran', [TransaksiController::class, 'detailPembayaran'])->name('detail.pembayaran');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::patch('/pemesanan/{id}/batalkan', [PemesananController::class, 'batalkan'])
+    ->middleware('auth')
+    ->name('pemesanan.batalkan');
 
 
 
@@ -249,3 +277,4 @@ Route::middleware(['pelanggan'])->group(function () {
 });
 
 
+Route::get('/detail-status', [PemesananController::class, 'showDetailStatus'])->name('profil.detailStatus');

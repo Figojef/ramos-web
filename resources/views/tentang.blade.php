@@ -58,7 +58,7 @@
                         </p>
                     </div>
                     <div class="col-md-3 col-12 text-center text-md-end order-1 order-md-2">
-                        <img src="assets/picture2.jpg" alt="Lapangan Badminton" class="img-fluid rounded shadow w-100">
+                        <img src="{{ asset('images/lapangan1.jpg') }}" alt="Lapangan Badminton" class="img-fluid rounded shadow w-100">
                     </div>
                 </div>
             </div>
