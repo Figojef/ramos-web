@@ -107,7 +107,7 @@ public function showPenilaianForm(Request $request)
     }
 
     $baseUrl = rtrim(env('API_BASE_URL', 'http://localhost:3000'), '/');
-    $url = "$baseUrl/api/v1/rating/penilaian/$userId/$mabarId";
+    $url = "$baseUrl/rating/penilaian/$userId/$mabarId";
 
     try {
         $response = Http::withToken($jwt)->get($url);

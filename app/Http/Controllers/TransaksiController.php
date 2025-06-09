@@ -39,7 +39,7 @@ class TransaksiController extends Controller
 public function detailPembayaran()
 {
     $baseUrl = rtrim(env('API_BASE_URL', 'http://localhost:3000'), '/');
-    $response = Http::get("{$baseUrl}/api/v1/infoKontakGor");
+    $response = Http::get("{$baseUrl}/InfoKontakGor");
 
     if ($response->successful()) {
         $kontak = $response->json()[0]; // ambil elemen pertama dari array
