@@ -308,7 +308,7 @@
                                     'content');
 
                                 const baseUrl = document.querySelector('meta[name="api-base-url"]').getAttribute('content');
-                                const response = await fetch(`${baseUrl}/api/v1/mabar/select_jadwal`, {
+                                const response = await fetch(`${baseUrl}mabar/select_jadwal`, {
 
                                     method: "POST",
                                     headers: {
