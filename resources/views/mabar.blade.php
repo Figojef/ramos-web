@@ -217,7 +217,7 @@ function setActiveTab(clickedTab) {
 function fetchMabarList() {
   const baseUrl = document.getElementById('base-url').textContent.trim().replace(/\/+$/, '');
   const apiUrl = `${baseUrl}/mabar/sebelum`;
-
+  
   fetch(apiUrl)
     .then(response => response.json())
     .then(result => {

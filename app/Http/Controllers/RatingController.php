@@ -34,22 +34,31 @@ public function showInformasiPemain($userId)
 
 public function show($id)
 {
-    $response = Http::get("http://localhost:3000/api/v1/rating/profil-rating/{$id}");
+    // URL endpoint backend kamu
+    $baseUrl = rtrim(env('API_BASE_URL'), '/'); // Contoh: http://localhost:3000/api/v1
+    $apiUrl = "{$baseUrl}/rating/profil-rating/{$id}";
 
+    // Panggil endpoint backend
+    $response = Http::get($apiUrl);
+
+    // Jika gagal ambil data, tampilkan error
     if ($response->failed()) {
-        abort(404, "Data tidak ditemukan");
+        abort(404, 'Data tidak ditemukan');
     }
 
-    $data = $response->json()['data'];
+    // Ambil data dari response JSON
+    $data = $response->json();
+    $profilData = $data['data'] ?? [];
 
+    // Kirim data ke view
     return view('informasi_pemain', [
         'user' => [
-            'name' => $data['nama'],
-            'email' => $data['email'],
-            'nomor_telepon' => $data['nomor_telepon'],
+            'name' => $profilData['nama'],
+            'email' => $profilData['email'],
+            'nomor_telepon' => $profilData['nomor_telepon'],
         ],
-        'ratings' => collect($data['penilaian_history_mabar']),
-        'rataRataKeseluruhan' => $data['rata_rata_keseluruhan_rating'],
+        'ratings' => collect($profilData['penilaian_history_mabar'] ?? []),
+        'rataRataKeseluruhan' => $profilData['rata_rata_keseluruhan_rating'] ?? null,
     ]);
 }
 
