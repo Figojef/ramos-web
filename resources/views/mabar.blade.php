@@ -170,8 +170,26 @@
     fetchMabarList();
 });
 
+    const flashSuccess = @json(session('success'));
+    const flashError = @json(session('error'));
 
+    if (flashSuccess) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: flashSuccess,
+            confirmButtonText: 'OK'
+        });
+    }
 
+    if (flashError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: flashError,
+            confirmButtonText: 'OK'
+        });
+    }
 let jwtUserId = "{{ Session::get('user_data')['_id'] ?? '' }}";
 let allMabarData = [];
 const jwtToken = "{{ Session::get('jwt') }}"; // Fetch token from Laravel session
